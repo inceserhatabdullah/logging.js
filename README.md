@@ -11,7 +11,7 @@ logging.info("to be written into the console!");
  * according to the parameter and timestamp value from the .env file.
  * @param message to be written into the file.
  */
-logging.appendLogFile(message);
+logging.appendLogToFile(message);
 ```
 ## .env
 ````dotenv
