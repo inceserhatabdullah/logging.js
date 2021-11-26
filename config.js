@@ -1,24 +1,25 @@
 export default {
     level: {
-        0: {
-            title: "INFO",
-            txtColor: "\x1b[32m"
+        info: {
+            title: "\x1b[32m INFO "
         },
-        1: {
-            title: "WARN",
-            txtColor: "\x1b[33m"
+        warn: {
+            title: "\x1b[33m WARN "
         },
-        2: {
-            title: "ERR!",
-            txtColor: "\x1b[31m"
+        error: {
+            title: "\x1b[41m ERROR "
         },
-        3: {
-            title: "INFO_LOW",
-            txtColor: "\x1b[2m",
-            addedLogSuccess: "Added log message successfully!"
-        }
+        info_low: {
+            title: "\x1b[2m INFO_LOW ",
+            message: "Added log message successfully!"
+        },
+        debug: {
+            title: "\x1b[42m DEBUG "
+        },
+        trace: {
+            title: "\x1b[46m TRACE "
+        },
     },
     reset: "\x1b[0m",
-    bright: "\x1b[1m",
     logsDirectory: "./logs"
 };

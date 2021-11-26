@@ -1,45 +1,75 @@
 'use strict';
 import config from './config.js';
 import fs from "fs";
+import {getDateISOString, getTimeStampFromDateISOString} from "./date.js";
 
 export default class {
-    #date = new Date().toISOString();
 
+    /**
+     *
+     * @param message
+     * @param level
+     */
     #log(message, level) {
-        const getLogConfig = config.level[level];
-
-        // Console logging.
-        console.log(this.#date, config.bright, getLogConfig.txtColor, getLogConfig.title, config.reset, message);
+        console.log(getDateISOString(), level.title, config.reset, message);
     }
 
-    async #mkdir() {
-        let flag = fs.existsSync(config.logsDirectory);
-        if(!flag) {
-            await fs.mkdirSync(config.logsDirectory);
-            flag = true
-        }
-        return flag;
+    /**
+     *
+     * @param path
+     */
+    #mkdir(path) {
+        if (!fs.existsSync(path))
+            fs.mkdirSync(path);
     }
 
-    async #appendLogFile(message) {
-        const filename = this.#date.split("T")[0],
-            createDirectory = await this.#mkdir();
-        console.log(createDirectory)
-        if (createDirectory) {
-            const logStream = fs.createWriteStream(`${config.logsDirectory}/${filename}.txt`, {flags: 'a'});
+    /**
+     *
+     * @param message
+     * @param path
+     * @param filename
+     */
+    #appendLogFile(message, path, filename) {
+        this.#mkdir(path);
+
+        if (fs.existsSync(path)) {
+            const logStream = fs.createWriteStream(`${path}/${filename}.txt`, {flags: 'a'});
             logStream.write(`${message}\n`, (error) => {
-                return error
-                    ? this.#log(error, 2)
-                    : this.#log(config.level["3"].addedLogSuccess, 3);
+                error ? this.#log(error, config.level.error) : this.#log(config.level.info_low.message, config.level.info_low);
             });
         }
     }
 
-    log(message, level) {
-        this.#log(message, level);
+    /**
+     * https://stackify.com/node-js-logging/
+     * @param message content to be written.
+     */
+    info(message) {
+        this.#log(message, config.level.info);
     }
 
-    async appendLogFile(message) {
-        await this.#appendLogFile(message);
+    warn(message) {
+        this.#log(message, config.level.warn);
+    }
+
+    error(message) {
+        this.#log(message, config.level.error);
+    }
+
+    debug(message) {
+        this.#log(message, config.level.debug);
+    }
+
+    trace(message) {
+        this.#log(message, config.level.trace);
+    }
+
+    /**
+     * @param message to be written into the file.
+     * @param path of the directory, default path: ./logs
+     * @param filename the name of the file to logs. default timestamp value ex: 2021-11-26.txt
+     */
+    appendLogFile(message, path = config.logsDirectory, filename = getTimeStampFromDateISOString()) {
+        this.#appendLogFile(message, path, filename);
     }
 }
