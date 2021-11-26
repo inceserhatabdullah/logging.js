@@ -11,7 +11,7 @@ export default {
         },
         info_low: {
             title: "\x1b[2m INFO_LOW ",
-            message: "Added log message successfully!"
+            message: "The log has been successfully added to the file.!"
         },
         debug: {
             title: "\x1b[42m DEBUG "
@@ -20,6 +20,5 @@ export default {
             title: "\x1b[46m TRACE "
         },
     },
-    reset: "\x1b[0m",
-    logsDirectory: "./logs"
+    reset: "\x1b[0m"
 };
