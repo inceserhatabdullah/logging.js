@@ -26,7 +26,7 @@ export default class {
      *
      * @param message
      */
-    #appendLogFile(message) {
+    #appendLogToFile(message) {
         const file = `${this.#loggingFilePath}/${process.env.LOGGING_FILE_NAME_PREV}_${getTimeStampFromDateISOString()}.txt`;
         this.#mkdir();
 
@@ -66,6 +66,6 @@ export default class {
      * @param message to be written into the file.
      */
     appendLogToFile(message) {
-        this.#appendLogFile(message);
+        this.#appendLogToFile(message);
     }
 }
