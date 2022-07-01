@@ -1,3 +1,7 @@
+# Logging.js
+
+Node.js logging is an important part of supporting the complete application life cycle. From creation to debugging to planning new features, logs support us all the way. By analyzing the data in the logs, we can glean insights, resolve bugs much quicker, and detect problems early and as they happen.
+
 ## Quick Start
 
 ```js
